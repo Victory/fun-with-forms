@@ -14,5 +14,5 @@ class BookView(FormView):
         return super(BookView, self).form_valid(form)
 
 
-class BookAdded(TemplateView):
+class BookAddedView(TemplateView):
     template_name = 'book-added.html'

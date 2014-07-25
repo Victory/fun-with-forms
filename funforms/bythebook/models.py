@@ -9,6 +9,7 @@ TITLE_CHOICES = (
     ('MS', 'Ms.')
 )
 
+
 class Author(models.Model):
     name = models.CharField(max_length=80)
     title = models.CharField(max_length=3, choices=TITLE_CHOICES)
@@ -20,6 +21,9 @@ class Author(models.Model):
 class Book(models.Model):
     name = models.CharField(max_length=200)
     authors = models.ManyToManyField(Author)
+
+    def __unicode__(self):
+        return self.name
 
 
 class AuthorForm(ModelForm):
