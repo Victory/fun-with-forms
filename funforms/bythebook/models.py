@@ -1,13 +1,7 @@
 from django.db import models
-from django.forms import ModelForm, Textarea
+from django import forms
 
-# Create your models here.
-
-TITLE_CHOICES = (
-    ('MR', 'Mr.'),
-    ('MRS', 'Mrs.'),
-    ('MS', 'Ms.')
-)
+TITLE_CHOICES = (('MR', 'Mr.'),('MRS', 'Mrs.'),('MS', 'Ms.'))
 
 
 class Author(models.Model):
@@ -26,17 +20,18 @@ class Book(models.Model):
         return self.name
 
 
-class AuthorForm(ModelForm):
+class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = '__all__'
 
         widgets = {
-            'name': Textarea(attrs={'cols': 80, 'rows': 20}),
+            'name': forms.TextInput(attrs={'cols': 80, 'rows': 20}),
+            'title': forms.TextInput(attrs={'cols': 80, 'rows': 20})
         }
 
 
-class BookForm(ModelForm):
+class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = '__all__'
