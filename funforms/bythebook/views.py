@@ -11,6 +11,7 @@ class BookView(FormView):
     success_url = '/book-added'
 
     def form_valid(self, form):
+        form.save(self.request, True)
         return super(BookView, self).form_valid(form)
 
 

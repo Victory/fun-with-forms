@@ -40,3 +40,7 @@ class BookForm(ModelForm):
     class Meta:
         model = Book
         fields = '__all__'
+
+    def save(self, request, commit=True):
+        super(BookForm, self).save(request)
+        pass
