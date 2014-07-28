@@ -5,8 +5,8 @@ TITLE_CHOICES = (('MR', 'Mr.'), ('MRS', 'Mrs.'), ('MS', 'Ms.'))
 
 
 class Author(models.Model):
-    name = models.CharField(max_length=80)
     title = models.CharField(max_length=3, choices=TITLE_CHOICES)
+    name = models.CharField(max_length=80)
 
     def __unicode__(self):
         return self.name
@@ -27,14 +27,18 @@ class AuthorForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'cols': 80, 'rows': 20}),
-            'title': forms.TextInput(attrs={'cols': 80, 'rows': 20})
+            'title': forms.Select(attrs={'cols': 80, 'rows': 20})
         }
 
 
 class BookForm(forms.ModelForm):
+
     class Meta:
         model = Book
-        fields = '__all__'
+        fields = ['name', 'authors']
+        widgets = {
+            'name': forms.TextInput(attrs={'cols': 80, 'rows': 20}),
+        }
 
     def save(self, request, commit=True):
         super(BookForm, self).save(request)
