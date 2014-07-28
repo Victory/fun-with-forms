@@ -1,7 +1,7 @@
 from django.db import models
 from django import forms
 
-TITLE_CHOICES = (('MR', 'Mr.'),('MRS', 'Mrs.'),('MS', 'Ms.'))
+TITLE_CHOICES = (('MR', 'Mr.'), ('MRS', 'Mrs.'), ('MS', 'Ms.'))
 
 
 class Author(models.Model):
