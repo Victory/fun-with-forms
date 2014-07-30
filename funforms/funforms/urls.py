@@ -8,7 +8,11 @@ import bythebook.views
 urlpatterns = patterns(
     '',
     url(r'^books', bythebook.views.BookView.as_view(), name='add_book'),
+    url(r'^manual',
+        bythebook.views.BookManualView.as_view(),
+        name='add_book_manual'),
     url(r'^book-added',
-        bythebook.views.BookAddedView.as_view(), name='add_book'),
+        bythebook.views.BookAddedView.as_view(),
+        name='add_book'),
     url(r'^admin/', include(admin.site.urls)),
 )
