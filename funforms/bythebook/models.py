@@ -41,5 +41,7 @@ class BookForm(forms.ModelForm):
         }
 
     def save(self, request, commit=True):
-        super(BookForm, self).save(request)
+        instance = super(BookForm, self).save(request)
+        instance.save(update_fields=['name'])
+
         pass
