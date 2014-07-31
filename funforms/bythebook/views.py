@@ -1,5 +1,8 @@
 from django.views.generic.edit import FormView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 from bythebook.models import BookForm
 
@@ -18,13 +21,23 @@ class BookAddedView(TemplateView):
     template_name = 'book-added.html'
 
 
-class BookManualView(FormView):
+class BookManualView(View):
     form_class = BookForm
     template_name = 'manual.html'
     success_url = '/manual'
 
-    def get_context_data(self, **kwargs):
-        context = super(BookManualView, self).get_context_data(**kwargs)
+    def get(self, request):
+        c = RequestContext(request, {})
+        return render_to_response(self.template_name, c)
+
+    def post(self, request):
+        print request.POST
+        authors = request.POST.get('authors')
+        print authors
+        for author in authors:
+            print author
+        return HttpResponse("Hi")
+
 
     def form_valid(self, form):
         print "form valid"
