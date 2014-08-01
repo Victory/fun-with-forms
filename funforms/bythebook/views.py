@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from bythebook.models import BookForm
+from bythebook.models import BookForm, AuthorForm
 
 
 class BookView(FormView):
@@ -31,11 +31,18 @@ class BookManualView(View):
         return render_to_response(self.template_name, c)
 
     def post(self, request):
-        print request.POST
-        authors = request.POST.get('authors')
-        print authors
-        for author in authors:
-            print author
+        authors = request.POST.getlist('authors')
+        titles =  request.POST.getlist('titles')
+
+        for ii,author in enumerate(authors):
+            name = author
+            title = titles[ii]
+            cur = {"name":name, "title": title}
+            a = AuthorForm(cur)
+
+            print a.is_valid()
+            print "\n\n\n\n"
+
         return HttpResponse("Hi")
 
 
