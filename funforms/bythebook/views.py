@@ -41,6 +41,7 @@ class BookManualView(View):
             a = AuthorForm(cur)
 
             print a.is_valid()
+            print a.errors
             print "\n\n\n\n"
 
         return HttpResponse("Hi")
