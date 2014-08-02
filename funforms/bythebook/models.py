@@ -40,8 +40,10 @@ class BookForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'cols': 80, 'rows': 20}),
         }
 
+    """
     def save(self, request, commit=True):
         instance = super(BookForm, self).save(request)
         instance.save(update_fields=['name'])
 
         pass
+    """

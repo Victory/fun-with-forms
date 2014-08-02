@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, View
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.db import transaction
 
 from bythebook.models import BookForm, AuthorForm
 
@@ -30,19 +31,38 @@ class BookManualView(View):
         c = RequestContext(request, {})
         return render_to_response(self.template_name, c)
 
+    @transaction.atomic
     def post(self, request):
+        name = request.POST.get('name')
+
         authors = request.POST.getlist('authors')
         titles =  request.POST.getlist('titles')
 
+        author_models = []
         for ii,author in enumerate(authors):
             name = author
             title = titles[ii]
             cur = {"name":name, "title": title}
             a = AuthorForm(cur)
 
-            print a.is_valid()
-            print a.errors
-            print "\n\n\n\n"
+            if a.is_valid():
+                a_model = a.save(commit=False)
+                author_models.append(a_model)
+            else:
+                print a.errors
+            print "---"
+
+        print author_models
+
+        author_ids = []
+        for a_model in author_models:
+            a_model.save()
+            author_ids.append(a_model.id)
+
+        book_form = BookForm({"name": name, "authors": author_ids})
+        print book_form.is_valid()
+        print book_form.errors
+        book_form.save(commit=True)
 
         return HttpResponse("Hi")
 
