@@ -28,7 +28,12 @@ class BookManualView(View):
     success_url = '/manual'
 
     def get(self, request):
-        c = RequestContext(request, {})
+        book = BookForm()
+        authors = []
+        for ii in xrange(3):
+            authors.append(AuthorForm())
+
+        c = RequestContext(request, {'authors': authors, 'book': book})
         return render_to_response(self.template_name, c)
 
     @transaction.atomic
@@ -60,9 +65,10 @@ class BookManualView(View):
             author_ids.append(a_model.id)
 
         book_form = BookForm({"name": name, "authors": author_ids})
-        print book_form.is_valid()
-        print book_form.errors
-        book_form.save(commit=True)
+        if book_form.is_valid():
+            book_form.save(commit=True)
+        else:
+            print book_form.errors
 
         return HttpResponse("Hi")
 
