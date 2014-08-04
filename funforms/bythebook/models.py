@@ -21,6 +21,8 @@ class Book(models.Model):
 
 
 class AuthorForm(forms.ModelForm):
+    def add_prefix(self, field_name):
+        return "author_" + field_name
     class Meta:
         model = Author
         fields = '__all__'

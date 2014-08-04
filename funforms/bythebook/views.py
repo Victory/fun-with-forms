@@ -39,15 +39,16 @@ class BookManualView(View):
     @transaction.atomic
     def post(self, request):
         name = request.POST.get('name')
+        print name
 
-        authors = request.POST.getlist('authors')
-        titles =  request.POST.getlist('titles')
+        authors = request.POST.getlist('author_name')
+        titles =  request.POST.getlist('author_title')
 
         author_models = []
         for ii,author in enumerate(authors):
-            name = author
-            title = titles[ii]
-            cur = {"name":name, "title": title}
+            author_name = author
+            author_title = titles[ii]
+            cur = {"author_name": author_name, "author_title": author_title}
             a = AuthorForm(cur)
 
             if a.is_valid():

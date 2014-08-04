@@ -2,38 +2,17 @@
   {% csrf_token %}
   <p>
     <label for="id_name">Name:</label> 
-    <input cols="80" id="id_name" maxlength="200" name="name" rows="20" type="text">
+    {{ book.name }}
   </p>
   <p>
     <label for="id_authors">Authors:</label>
 
-
+    {% for author in authors %}
     <div>
-      <select name="titles">
-        <option value="MR">Mr</option>
-        <option value="MRS">Mrs</option>
-        <option value="MS">Ms</option>
-      </select>
-      <input name="authors">
+      {{ author.title }}
+      {{ author.name }}
     </div>
-
-    <div>
-      <select name="titles">
-        <option value="MR">Mr</option>
-        <option value="MRS">Mrs</option>
-        <option value="MS">Ms</option>
-      </select>
-      <input name="authors">
-    </div>
-
-    <div>
-      <select name="titles">
-        <option value="MR">Mr</option>
-        <option value="MRS">Mrs</option>
-        <option value="MS">Ms</option>
-      </select>
-      <input name="authors">
-    </div>
+    {% endfor %}
 
   </p>
   <input type="submit" value="Send message">
