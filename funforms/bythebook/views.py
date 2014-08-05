@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.db import transaction
 
-from bythebook.models import BookForm, AuthorForm
+from bythebook.models import BookForm, AuthorForm, Author
 
 
 class BookView(FormView):
@@ -52,7 +52,12 @@ class BookManualView(View):
             a = AuthorForm(cur)
 
             if a.is_valid():
-                a_model = a.save(commit=False)
+                obj = Author.objects.filter(
+                    name=author_name, title=author_title)
+                if obj:
+                    a_model = obj[0]
+                else:
+                    a_model = a.save(commit=False)
                 author_models.append(a_model)
             else:
                 print a.errors
