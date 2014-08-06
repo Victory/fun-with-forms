@@ -20,6 +20,11 @@ class Book(models.Model):
         return self.name
 
 
+class Topic(models.Model):
+    name = models.CharField(max_length=200)
+    book = models.ForeignKey(Book, blank=True)
+
+
 class AuthorForm(forms.ModelForm):
     def add_prefix(self, field_name):
         return "author_" + field_name
