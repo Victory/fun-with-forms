@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.db import transaction
 
-from bythebook.models import BookForm, AuthorForm, Author
+from bythebook.models import BookForm, AuthorForm, TopicForm, Author
 
 
 class BookView(FormView):
@@ -29,11 +29,16 @@ class BookManualView(View):
 
     def get(self, request):
         book = BookForm()
+        topic = TopicForm()
         authors = []
         for ii in xrange(3):
             authors.append(AuthorForm())
 
-        c = RequestContext(request, {'authors': authors, 'book': book})
+        c = RequestContext(
+            request,
+            {'authors': authors,
+             'book': book,
+             'topic': topic})
         return render_to_response(self.template_name, c)
 
     @transaction.atomic
@@ -43,6 +48,7 @@ class BookManualView(View):
 
         authors = request.POST.getlist('author_name')
         titles =  request.POST.getlist('author_title')
+        topic_name =  request.POST.getlist('topic_name')
 
         author_models = []
         for ii,author in enumerate(authors):
@@ -72,12 +78,19 @@ class BookManualView(View):
 
         book_form = BookForm({"name": name, "authors": author_ids})
         if book_form.is_valid():
-            book_form.save(commit=True)
+            book_model = book_form.save(commit=True)
         else:
             print book_form.errors
 
-        return HttpResponse("Hi")
+        print book_model.id
+        topic_form = TopicForm(
+            {"topic_name": topic_name[0], "topic_book": book_model.id})
+        if topic_form.is_valid():
+            topic_model = topic_form.save()
+        else:
+            print topic_form.errors
 
+        return HttpResponse("Hi")
 
     def form_valid(self, form):
         print "form valid"

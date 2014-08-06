@@ -5,3 +5,4 @@ import bythebook.models
 
 admin.site.register(bythebook.models.Book)
 admin.site.register(bythebook.models.Author)
+admin.site.register(bythebook.models.Topic)

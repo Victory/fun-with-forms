@@ -24,6 +24,19 @@ class Topic(models.Model):
     name = models.CharField(max_length=200)
     book = models.ForeignKey(Book, blank=True)
 
+    def __unicode__(self):
+        return self.name
+
+class TopicForm(forms.ModelForm):
+    def add_prefix(self, field_name):
+        return "topic_" + field_name
+    class Meta:
+        model = Topic
+        fields = ['name', 'book']
+        widgets = {
+            'name': forms.TextInput(attrs={'cols': 80, 'rows': 20})
+        }
+
 
 class AuthorForm(forms.ModelForm):
     def add_prefix(self, field_name):
