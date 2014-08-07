@@ -48,7 +48,7 @@ class BookManualView(View):
 
         authors = request.POST.getlist('author_name')
         titles =  request.POST.getlist('author_title')
-        topic_name =  request.POST.getlist('topic_name')
+        topic_name =  request.POST.get('topic_name')
 
         author_models = []
         for ii,author in enumerate(authors):
@@ -84,7 +84,7 @@ class BookManualView(View):
 
         print book_model.id
         topic_form = TopicForm(
-            {"topic_name": topic_name[0], "topic_book": book_model.id})
+            {"topic_name": topic_name, "topic_book": book_model.id})
         if topic_form.is_valid():
             topic_model = topic_form.save()
         else:
