@@ -56,6 +56,9 @@ class BookManualView(View):
         for ii,author in enumerate(authors):
             author_name = author
             author_title = titles[ii]
+            if author_name == "" and author_title == "":
+                continue
+
             cur = {"author_name": author_name, "author_title": author_title}
             a = AuthorForm(cur)
             author_forms.append(a)
@@ -80,20 +83,24 @@ class BookManualView(View):
             author_ids.append(a_model.id)
 
         book_form = BookForm({"name": name, "authors": author_ids})
+        book_model = None
         if book_form.is_valid():
             book_model = book_form.save(commit=True)
         else:
             found_errors = True
             print book_form.errors
 
-        print book_model.id
-        topic_form = TopicForm(
-            {"topic_name": topic_name, "topic_book": book_model.id})
-        if topic_form.is_valid():
-            topic_model = topic_form.save()
+        if book_model:
+            print book_model.id
+            topic_form = TopicForm(
+                {"topic_name": topic_name, "topic_book": book_model.id})
+            if topic_form.is_valid():
+                topic_model = topic_form.save()
+            else:
+                found_errors = True
+                print topic_form.errors
         else:
-            found_errors = True
-            print topic_form.errors
+            topic_form = TopicForm({"topic_name": topic_name})
 
         if found_errors:
             c = RequestContext(
