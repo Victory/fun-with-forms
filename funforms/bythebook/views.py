@@ -50,13 +50,15 @@ class BookManualView(View):
         titles =  request.POST.getlist('author_title')
         topic_name =  request.POST.get('topic_name')
 
+        found_errors = False
         author_models = []
+        author_forms = []
         for ii,author in enumerate(authors):
             author_name = author
             author_title = titles[ii]
             cur = {"author_name": author_name, "author_title": author_title}
             a = AuthorForm(cur)
-
+            author_forms.append(a)
             if a.is_valid():
                 obj = Author.objects.filter(
                     name=author_name, title=author_title)
@@ -66,6 +68,7 @@ class BookManualView(View):
                     a_model = a.save(commit=False)
                 author_models.append(a_model)
             else:
+                found_errors = True
                 print a.errors
             print "---"
 
@@ -80,6 +83,7 @@ class BookManualView(View):
         if book_form.is_valid():
             book_model = book_form.save(commit=True)
         else:
+            found_errors = True
             print book_form.errors
 
         print book_model.id
@@ -88,7 +92,16 @@ class BookManualView(View):
         if topic_form.is_valid():
             topic_model = topic_form.save()
         else:
+            found_errors = True
             print topic_form.errors
+
+        if found_errors:
+            c = RequestContext(
+                request,
+                {'authors': author_forms,
+                 'book': book_form,
+                 'topic': topic_form})
+            return render_to_response(self.template_name, c)
 
         return HttpResponse("Hi")
 
