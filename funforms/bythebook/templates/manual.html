@@ -3,6 +3,7 @@
   <p>
     <label for="id_name">Name:</label> 
     {{ book.name }}
+    {{ book.name.errors }}
   </p>
   <p>
     <label for="id_authors">Authors:</label>
@@ -11,11 +12,17 @@
     <div>
       {{ author.title }}
       {{ author.name }}
+      {{ author.name.errors }}
     </div>
     {% endfor %}
     
     <div>
     Topic: {{ topic.name }}
+
+    {% for error in topic.name.errors %}
+        <span class="error">*</span><strong>{{ error|escape }}</strong>
+    {% endfor %}
+
     </div>
   </p>
   <input type="submit" value="Send message">

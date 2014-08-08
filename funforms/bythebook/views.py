@@ -100,7 +100,10 @@ class BookManualView(View):
                 found_errors = True
                 print topic_form.errors
         else:
-            topic_form = TopicForm({"topic_name": topic_name})
+            topic_form = TopicForm(
+                {"topic_name": topic_name, "topic_book": -1})
+            topic_form.is_valid()
+            print topic_form.errors
 
         if found_errors:
             c = RequestContext(
