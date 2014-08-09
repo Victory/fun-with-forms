@@ -37,6 +37,7 @@ class BookManualView(View):
         c = RequestContext(
             request,
             {'authors': authors,
+             'author_prototype': AuthorForm(),
              'book': book,
              'topic': topic})
         return render_to_response(self.template_name, c)

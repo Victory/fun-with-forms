@@ -1,29 +1,52 @@
-<form action="" method="POST">
-  {% csrf_token %}
-  <p>
-    <label for="id_name">Name:</label> 
-    {{ book.name }}
-    {{ book.name.errors }}
-  </p>
-  <p>
-    <label for="id_authors">Authors:</label>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" 
+            src="{% static "js/jquery.js" %}"></script>
 
-    {% for author in authors %}
-    <div>
-      {{ author.title }}
-      {{ author.name }}
-      {{ author.name.errors }}
-    </div>
-    {% endfor %}
-    
-    <div>
-    Topic: {{ topic.name }}
+  </head>
+  <body>    
+    <form action="" method="POST">
+      {% csrf_token %}
+      <p>
+        <label for="id_name">Name:</label> 
+        {{ book.name }}
+        {{ book.name.errors }}
+      </p>
+      <p>
+        <label for="id_authors">Authors:</label>
 
-    {% for error in topic.name.errors %}
-        <span class="error">*</span><strong>{{ error|escape }}</strong>
-    {% endfor %}
+        <div id="authors">
+          {% for author in authors %}
+          <div>
+            {{ author.title }}
+            {{ author.name }}
+            {{ author.name.errors }}
+          </div>
+          {% endfor %}
+        </div>
 
-    </div>
-  </p>
-  <input type="submit" value="Send message">
-</form>
+        <div id="author_prototype" class="hide">
+          {{ author_prototype.title }}
+          {{ author_prototype.name }}
+        </div>
+
+        <div>
+          Topic: {{ topic.name }}
+
+          {% for error in topic.name.errors %}
+          <span class="error">*</span><strong>{{ error|escape }}</strong>
+          {% endfor %}
+
+        </div>
+      </p>
+      <input type="submit" value="Send message">
+    </form>
+
+    <script>
+      jQuery(function ($) {
+      });
+    </script>
+  </body>
+</html>
