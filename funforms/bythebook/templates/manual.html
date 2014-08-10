@@ -19,18 +19,22 @@
 
         <div id="authors">
           {% for author in authors %}
-          <div>
+          <div class="author">
             {{ author.title }}
             {{ author.name }}
             {{ author.name.errors }}
+            <button type="button">Remove</button>
           </div>
           {% endfor %}
         </div>
         <button type="button" id="add_author">Add Author</button>
 
-        <div id="author_prototype" class="hide">
-          {{ author_prototype.title }}
-          {{ author_prototype.name }}
+        <div id="author_prototype" style="display:none">
+          <div class="author">
+            {{ author_prototype.title }}
+            {{ author_prototype.name }}
+            <button type="button">Remove</button>
+          </div>
         </div>
 
         <div>
@@ -47,13 +51,29 @@
 
     <script>
       jQuery(function ($) {
+        var bindRemove = function () {
+          $elms = $(".author button");
+          $elms.click(function (evt) {
+             console.log('click');
+             $(this).parents(".author").remove();
+             $elms = $(".author button");
+             if ($elms.length == 2) {
+               $("button", $(".author")[0]).remove();
+               return;
+             }
+           });
+        };
+        bindRemove();
         $("#add_author").click(function (evt) {
-        console.log($("#author_prototype").html());
           var $proto = $($("#author_prototype").html());
           var $div = $("<div>");
           $div.append($proto);
           $("#authors").append($div);
+          bindRemove();
         });
+
+
+        
       });
     </script>
   </body>
