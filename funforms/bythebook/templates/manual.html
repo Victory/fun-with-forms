@@ -26,6 +26,7 @@
           </div>
           {% endfor %}
         </div>
+        <button type="button" id="add_author">Add Author</button>
 
         <div id="author_prototype" class="hide">
           {{ author_prototype.title }}
@@ -46,6 +47,13 @@
 
     <script>
       jQuery(function ($) {
+        $("#add_author").click(function (evt) {
+        console.log($("#author_prototype").html());
+          var $proto = $($("#author_prototype").html());
+          var $div = $("<div>");
+          $div.append($proto);
+          $("#authors").append($div);
+        });
       });
     </script>
   </body>
