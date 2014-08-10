@@ -23,7 +23,9 @@
             {{ author.title }}
             {{ author.name }}
             {{ author.name.errors }}
+            {% if not forloop.first %}
             <button type="button">Remove</button>
+            {% endif %}
           </div>
           {% endfor %}
         </div>
