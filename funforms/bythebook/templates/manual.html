@@ -13,7 +13,9 @@
       <p>
         <label for="id_name">Name:</label> 
         {{ book.name }}
-        {{ book.name.errors }}
+        {% for error in book.name.errors %}
+        <span class="error">*</span><strong>{{ error|escape }}</strong>
+        {% endfor %}
       </p>
       <p>
         <label for="id_authors">Authors:</label>
@@ -22,11 +24,16 @@
           {% for author in authors %}
           <div class="author">
             {{ author.title }}
-            {{ author.name }}
-            {{ author.name.errors }}
+            {{ author.name }} 
+
             {% if not forloop.first %}
             <button type="button">Remove</button>
             {% endif %}
+
+            {% for error in author.name.errors %}
+            <span class="error">*</span><strong>{{ error|escape }}</strong>
+            {% endfor %}
+
           </div>
           {% endfor %}
         </div>
