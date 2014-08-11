@@ -111,7 +111,9 @@ class BookManualView(View):
                 request,
                 {'authors': author_forms,
                  'book': book_form,
-                 'topic': topic_form})
+                 'topic': topic_form,
+                 'author_prototype': AuthorForm()
+                 })
             return render_to_response(self.template_name, c)
 
         return HttpResponse("Hi")
