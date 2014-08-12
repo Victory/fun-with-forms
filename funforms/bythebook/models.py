@@ -1,11 +1,15 @@
 from django.db import models
 from django import forms
 
+from bythebook.validators import title_does_not_start_with_quote
+
 TITLE_CHOICES = (('MR', 'Mr.'), ('MRS', 'Mrs.'), ('MS', 'Ms.'))
 
 
 class Author(models.Model):
-    title = models.CharField(max_length=3, choices=TITLE_CHOICES)
+    title = models.CharField(
+        max_length=3,
+        choices=TITLE_CHOICES)
     name = models.CharField(max_length=80)
 
     def __unicode__(self):
@@ -13,7 +17,9 @@ class Author(models.Model):
 
 
 class Book(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(
+        max_length=200,
+        validators=[title_does_not_start_with_quote])
     authors = models.ManyToManyField(Author)
 
     def __unicode__(self):
@@ -30,6 +36,7 @@ class Topic(models.Model):
 class TopicForm(forms.ModelForm):
     def add_prefix(self, field_name):
         return "topic_" + field_name
+
     class Meta:
         model = Topic
         fields = ['name', 'book']
@@ -41,6 +48,10 @@ class TopicForm(forms.ModelForm):
 class AuthorForm(forms.ModelForm):
     def add_prefix(self, field_name):
         return "author_" + field_name
+
+    def __init__(self, *args, **kwargs):
+        super(AuthorForm, self).__init__(*args, **kwargs)
+
     class Meta:
         model = Author
         fields = '__all__'
@@ -59,11 +70,3 @@ class BookForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'cols': 80, 'rows': 20}),
         }
-
-    """
-    def save(self, request, commit=True):
-        instance = super(BookForm, self).save(request)
-        instance.save(update_fields=['name'])
-
-        pass
-    """
