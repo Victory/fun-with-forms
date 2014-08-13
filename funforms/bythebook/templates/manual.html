@@ -24,14 +24,20 @@
           {% for author in authors %}
           <div class="author">
             {{ author.title }}
+
             {{ author.name }} 
 
             {% if not forloop.first %}
             <button type="button">Remove</button>
             {% endif %}
 
+
+            {% for error in author.title.errors %}
+            <span class="error">*</span> Title: <strong>{{ error|escape }}</strong>
+            {% endfor %}
+
             {% for error in author.name.errors %}
-            <span class="error">*</span><strong>{{ error|escape }}</strong>
+            <span class="error">*</span> Name:<strong>{{ error|escape }}</strong>
             {% endfor %}
 
           </div>
