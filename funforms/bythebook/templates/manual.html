@@ -38,6 +38,8 @@
 
             {% for error in author.name.errors %}
             <span class="error">*</span> Name:<strong>{{ error|escape }}</strong>
+            
+
             {% endfor %}
 
           </div>
@@ -58,6 +60,11 @@
 
           {% for error in topic.name.errors %}
           <span class="error">*</span><strong>{{ error|escape }}</strong>
+
+            {% if forloop.first %}
+            <script>$('#id_topic_name').css('border', '1px solid red');</script>
+            {% endif %}
+
           {% endfor %}
 
         </div>
