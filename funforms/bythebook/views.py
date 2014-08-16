@@ -45,7 +45,6 @@ class BookManualView(View):
     @transaction.atomic
     def post(self, request):
         name = request.POST.get('name')
-        print name
 
         authors = request.POST.getlist('author_name')
         titles =  request.POST.getlist('author_title')
@@ -73,10 +72,6 @@ class BookManualView(View):
                 author_models.append(a_model)
             else:
                 found_errors = True
-                print a.errors
-            print "---"
-
-        print author_models
 
         author_ids = []
         for a_model in author_models:
@@ -89,22 +84,18 @@ class BookManualView(View):
             book_model = book_form.save(commit=True)
         else:
             found_errors = True
-            print book_form.errors
 
         if book_model:
-            print book_model.id
             topic_form = TopicForm(
                 {"topic_name": topic_name, "topic_book": book_model.id})
             if topic_form.is_valid():
                 topic_model = topic_form.save()
             else:
                 found_errors = True
-                print topic_form.errors
         else:
             topic_form = TopicForm(
                 {"topic_name": topic_name, "topic_book": -1})
             topic_form.is_valid()
-            print topic_form.errors
 
         if found_errors:
             c = RequestContext(
@@ -116,7 +107,7 @@ class BookManualView(View):
                  })
             return render_to_response(self.template_name, c)
 
-        return HttpResponse("Hi")
+        return HttpResponse("Book Added!")
 
     def form_valid(self, form):
         print "form valid"
