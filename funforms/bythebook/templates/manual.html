@@ -15,6 +15,10 @@
         {{ book.name }}
         {% for error in book.name.errors %}
         <span class="error">*</span><strong>{{ error|escape }}</strong>
+            {% if forloop.first %}
+            <script>$('#id_name').css('border', '1px solid red');</script>
+            {% endif %}
+
         {% endfor %}
       </p>
       <p>
@@ -24,13 +28,11 @@
           {% for author in authors %}
           <div class="author">
             {{ author.title }}
-
             {{ author.name }} 
 
             {% if not forloop.first %}
             <button type="button">Remove</button>
             {% endif %}
-
 
             {% for error in author.title.errors %}
             <span class="error">*</span> Title: <strong>{{ error|escape }}</strong>
@@ -41,7 +43,12 @@
 
             {% if forloop.first %}
             <span id="ph{{forloop.parentloop.counter}}"></span>
-            <script>$("#ph{{forloop.parentloop.counter}}").parent(".author").find("input").css('border', '1px solid red');</script>
+            <script>
+              $("#ph{{forloop.parentloop.counter}}")
+              .parent(".author")
+              .find("input")
+              .css('border', '1px solid red');
+            </script>
             {% endif %}
 
             {% endfor %}
@@ -64,11 +71,9 @@
 
           {% for error in topic.name.errors %}
           <span class="error">*</span><strong>{{ error|escape }}</strong>
-
             {% if forloop.first %}
             <script>$('#id_topic_name').css('border', '1px solid red');</script>
             {% endif %}
-
           {% endfor %}
 
         </div>
