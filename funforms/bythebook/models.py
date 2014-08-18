@@ -33,6 +33,7 @@ class Topic(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class TopicForm(forms.ModelForm):
     def add_prefix(self, field_name):
         return "topic_" + field_name
