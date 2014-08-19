@@ -1,7 +1,9 @@
 from django.db import models
 from django import forms
 
-from bythebook.validators import title_does_not_start_with_quote
+from bythebook.validators import (
+    title_does_not_start_with_quote,
+    title_bad_chars)
 
 TITLE_CHOICES = (('MR', 'Mr.'), ('MRS', 'Mrs.'), ('MS', 'Ms.'))
 
@@ -19,7 +21,7 @@ class Author(models.Model):
 class Book(models.Model):
     name = models.CharField(
         max_length=200,
-        validators=[title_does_not_start_with_quote])
+        validators=[title_does_not_start_with_quote, title_bad_chars])
     authors = models.ManyToManyField(Author)
 
     def __unicode__(self):
