@@ -4,6 +4,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 import bythebook.views
+import hideyshowy.views
 
 urlpatterns = patterns(
     '',
@@ -11,6 +12,9 @@ urlpatterns = patterns(
     url(r'^manual',
         bythebook.views.BookManualView.as_view(),
         name='add_book_manual'),
+    url(r'^hideyshowy',
+        hideyshowy.views.ManualView.as_view(),
+        name='add_hideyshowy_manual'),
     url(r'^book-added',
         bythebook.views.BookAddedView.as_view(),
         name='add_book'),
