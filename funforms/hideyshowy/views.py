@@ -1,7 +1,16 @@
-from django.shortcuts import render
+from django.views.generic import View
+from django.template import RequestContext
+from django.shortcuts import render_to_response
 
-from django.views.generic import TemplateView, View
+from hideyshowy.models import HideyShowyForm
 
-
-class ManualView(TemplateView):
+class ManualView(View):
     template_name = 'hideyshowy.html'
+
+
+    def get(self, request):
+        hidey_showy = HideyShowyForm()
+
+        c = RequestContext(request)
+
+        return render_to_response(self.template_name, c)
