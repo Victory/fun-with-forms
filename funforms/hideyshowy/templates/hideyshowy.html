@@ -8,11 +8,11 @@
   </head>
   <body>
     <form>
-      Input This <input>
+      Input This {{ form.definitely_need_this }}
       Check This <input type="checkbox" id="isChecked"> 
       
       <div style="display:none" id="showIfIsChecked">
-        and Show This<input>
+        and Show This {{ form.might_need_this }}
       </div>
       <button type="submit">Submit!</button>
     </form>

@@ -9,8 +9,8 @@ class ManualView(View):
 
 
     def get(self, request):
-        hidey_showy = HideyShowyForm()
+        hideyshowyform = HideyShowyForm()
 
-        c = RequestContext(request)
+        c = RequestContext(request, {"form": hideyshowyform})
 
         return render_to_response(self.template_name, c)

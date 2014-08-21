@@ -13,6 +13,14 @@ class HideyShowy(models.Model):
         blank=True)
 
 
-class HideyShowyForm():
+class HideyShowyForm(forms.ModelForm):
     class Meta:
         model = HideyShowy
+        fields = ['definitely_need_this', 'might_need_this']
+
+        widgets = {
+            'definitely_need_this':
+            forms.TextInput(attrs={'cols': 80, 'rows': 20}),
+            'might_need_this':
+            forms.Select(attrs={'cols': 80, 'rows': 20})
+        }
