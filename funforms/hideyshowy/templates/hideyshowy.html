@@ -1,9 +1,23 @@
-<form>
-Input This <input>
-Check This <input type="checkbox" id="isChecked"> 
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manually add book</title>
+    <script type="text/javascript" 
+            src="{% static "js/jquery.js" %}"></script>
+  </head>
+  <body>
+    <form>
+      Input This <input>
+      Check This <input type="checkbox" id="isChecked"> 
+      
+      <div style="display:none" id="showIfIsChecked">
+        and Show This<input>
+      </div>
+      <button type="submit">Submit!</button>
+    </form>
 
-<div style="display:none" id="showIfIsChecked">
-and Show This<input>
-</div>
-<button type="submit">Submit!</button>
-</form>
+    <script type="text/javascript" 
+            src="{% static "js/hideyshowy.js" %}"></script>
+  </body>
+</html>
