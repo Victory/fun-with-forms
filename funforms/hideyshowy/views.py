@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 
 from hideyshowy.models import HideyShowyForm
 
+
 class ManualView(View):
     template_name = 'hideyshowy.html'
 

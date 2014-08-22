@@ -1,5 +1,5 @@
 jQuery(function ($) {
-  $("#isChecked").click(function (evt) {
+  $("#id_check_this").click(function (evt) {
     var $this = $(this);
     if ($this.is(':checked')) {
       $("#showIfIsChecked").show();

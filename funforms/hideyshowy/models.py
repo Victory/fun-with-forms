@@ -14,6 +14,8 @@ class HideyShowy(models.Model):
 
 
 class HideyShowyForm(forms.ModelForm):
+    check_this = forms.BooleanField()
+
     class Meta:
         model = HideyShowy
         fields = ['definitely_need_this', 'might_need_this']
@@ -22,5 +24,6 @@ class HideyShowyForm(forms.ModelForm):
             'definitely_need_this':
             forms.TextInput(attrs={'cols': 80, 'rows': 20}),
             'might_need_this':
-            forms.Select(attrs={'cols': 80, 'rows': 20})
+            forms.TextInput(attrs={'cols': 80, 'rows': 20}),
+
         }
