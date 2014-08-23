@@ -7,7 +7,8 @@
             src="{% static "js/jquery.js" %}"></script>
   </head>
   <body>
-    <form>
+    <form method="POST">
+      {% csrf_token %}
       Input This {{ form.definitely_need_this }}
       Check This {{ form.check_this }}
 
