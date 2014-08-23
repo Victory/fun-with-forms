@@ -12,7 +12,8 @@
       Input This {{ form.definitely_need_this }}
       Check This {{ form.check_this }}
 
-      <div style="display:none" id="showIfIsChecked">
+      <div id="showIfIsChecked" 
+           {% if not form.check_this.value %} style="display:none" {% endif %}>
         and Show This {{ form.might_need_this }}
       </div>
       <button type="submit">Submit!</button>

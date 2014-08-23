@@ -16,11 +16,11 @@ class ManualView(View):
 
 
     def post(self, request):
-        need = request.POST.get('definitely_need_this')
-        might = request.POST.get('might_need_this')
-        check_this = request.POST.get('check_this')
 
-        form =self.form(request.POST)
+        form = self.form(request.POST)
+
+        if form.is_valid():
+            form.save()
 
         c = RequestContext(request, {"form": form})
 

@@ -16,9 +16,19 @@ class HideyShowy(models.Model):
 class HideyShowyForm(forms.ModelForm):
     check_this = forms.BooleanField()
 
+    def clean(self):
+        cleaned = self.cleaned_data
+
+        if cleaned.get('check_this') and not cleaned.get('might_need_this'):
+            raise forms.ValidationError(
+                "You Checked this but didn't set in a value")
+
+        print cleaned
+        return cleaned
+
     class Meta:
         model = HideyShowy
-        fields = ['definitely_need_this', 'might_need_this']
+        fields = ['definitely_need_this', 'might_need_this', 'check_this']
 
         widgets = {
             'definitely_need_this':
