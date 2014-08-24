@@ -18,10 +18,13 @@ class HideyShowyForm(forms.ModelForm):
 
     def clean(self):
         cleaned = self.cleaned_data
+        #import pdb; pdb.set_trace()
 
         if cleaned.get('check_this') and not cleaned.get('might_need_this'):
+            self.add_error('might_need_this', 'If checked you need this')
             raise forms.ValidationError(
-                "You Checked this but didn't set in a value")
+                "You Checked this but didn't set in a value",
+                code="checked_needed")
 
         return cleaned
 

@@ -22,6 +22,14 @@
       <div id="showIfIsChecked" 
            {% if not form.check_this.value %} style="display:none" {% endif %}>
         and Show This {{ form.might_need_this }}
+      {% for error in form.might_need_this.errors %}
+        <span class="error">*</span><strong>{{ error|escape }}</strong>
+        {% if forloop.first %}
+        <script>$('#id_might_need_this').css('border', '1px solid red');</script>
+        {% endif %}
+      {% endfor %}
+
+
       </div>
       <button type="submit">Submit!</button>
     </form>
