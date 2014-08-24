@@ -23,7 +23,6 @@ class HideyShowyForm(forms.ModelForm):
             raise forms.ValidationError(
                 "You Checked this but didn't set in a value")
 
-        print cleaned
         return cleaned
 
     class Meta:
