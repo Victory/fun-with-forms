@@ -5,6 +5,9 @@ admin.autodiscover()
 
 import bythebook.views
 import hideyshowy.views
+import extraball.views
+
+from extraball.models import ExtraBallForm1, ExtraBallForm2
 
 urlpatterns = patterns(
     '',
@@ -18,5 +21,13 @@ urlpatterns = patterns(
     url(r'^book-added',
         bythebook.views.BookAddedView.as_view(),
         name='add_book'),
+    url(r'^extraball',
+        extraball.views.ExtraBallView.as_view([ExtraBallForm1, ExtraBallForm2]),
+        name='extraball'),
+
+    url(r'^extraball/done',
+        extraball.views.DoneView.as_view(),
+        name='extraball_done'),
+
     url(r'^admin/', include(admin.site.urls)),
 )
