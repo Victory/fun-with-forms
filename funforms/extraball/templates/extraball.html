@@ -4,14 +4,17 @@
 {% csrf_token %}
 {{ form.as_p }}
 {{ wizard.management_form }}
-<input type="submit" value="On to Step 2">
-</form>
+<input type="submit" value="On to Step {{ wizard.steps.next }}">
+
 
 {% if wizard.steps.prev %}
-<button name="wizard_goto_step" 
-        type="submit" 
-        value="{{ wizard.steps.first }}">Start over</button>
+<div style="margin-left: 150px">
 <button name="wizard_goto_step" 
         type="submit" 
         value="{{ wizard.steps.prev }}">Back</button>
+<button name="wizard_goto_step" 
+        type="submit" 
+        value="{{ wizard.steps.first }}">Start over</button>
 {% endif %}
+</div>
+</form>

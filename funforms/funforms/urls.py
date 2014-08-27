@@ -7,7 +7,7 @@ import bythebook.views
 import hideyshowy.views
 import extraball.views
 
-from extraball.models import ExtraBallForm1, ExtraBallForm2
+from extraball.models import ExtraBallForm1, ExtraBallForm2, ExtraBallForm3
 
 urlpatterns = patterns(
     '',
@@ -22,7 +22,8 @@ urlpatterns = patterns(
         bythebook.views.BookAddedView.as_view(),
         name='add_book'),
     url(r'^extraball',
-        extraball.views.ExtraBallView.as_view([ExtraBallForm1, ExtraBallForm2]),
+        extraball.views.ExtraBallView.as_view(
+            [ExtraBallForm1, ExtraBallForm2, ExtraBallForm3]),
         name='extraball'),
 
     url(r'^extraball/done',

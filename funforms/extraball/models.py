@@ -10,3 +10,7 @@ class ExtraBallForm1(forms.Form):
 
 class ExtraBallForm2(forms.Form):
     message = forms.CharField(widget=forms.Textarea)
+
+
+class ExtraBallForm3(forms.Form):
+    token = forms.CharField(widget=forms.Textarea)
