@@ -1,0 +1,6 @@
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+{{ wizard.management_form }}
+<input type="submit" value="On to Step 2">
+</form>
