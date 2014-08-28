@@ -4,7 +4,7 @@
 {% csrf_token %}
 {{ form.as_p }}
 {{ wizard.management_form }}
-<input type="submit" value="On to Step {{ wizard.steps.next }}">
+<input type="submit" value="On to Step {{ wizard.steps.next|add:1 }}">
 
 
 {% if wizard.steps.prev %}
