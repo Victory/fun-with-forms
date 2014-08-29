@@ -1,9 +1,9 @@
 
 <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 <form method="POST">
-{% csrf_token %}
-{{ form.as_p }}
-{{ wizard.management_form }}
+  {% csrf_token %}
+  {{ form.as_p }}
+  {{ wizard.management_form }}
 <input type="submit" value="On to Step {{ wizard.steps.next|add:1 }}">
 
 
