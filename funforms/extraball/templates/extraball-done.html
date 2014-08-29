@@ -1,3 +1,23 @@
 You're done!
+<br>
+You entered
+<br>
 
-{{form_data}}
+<table>
+<tr>
+  <th>source</th>
+  <td>{{ form_data.0.source }}</td>
+</tr> 
+<tr>
+  <th>subject</th>
+  <td>{{ form_data.0.subject }}</td>
+</tr> 
+</table>
+
+<h3>Message</h3>
+<p>
+{{ form_data.1.message }}
+</p>
+
+<h4>{{ form_data.2.token }}</h4>
+
