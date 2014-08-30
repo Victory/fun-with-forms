@@ -1,20 +1,24 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
 
+{% block content %}
 <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 <form method="POST">
   {% csrf_token %}
   {{ form.as_p }}
   {{ wizard.management_form }}
-<input type="submit" value="On to Step {{ wizard.steps.next|add:1 }}">
+  <input type="submit" value="On to Step {{ wizard.steps.next|add:1 }}">
 
 
-{% if wizard.steps.prev %}
-<div style="margin-left: 150px">
-<button name="wizard_goto_step" 
-        type="submit" 
-        value="{{ wizard.steps.prev }}">Back</button>
-<button name="wizard_goto_step" 
-        type="submit" 
-        value="{{ wizard.steps.first }}">Start over</button>
-{% endif %}
-</div>
-</form>
+    {% if wizard.steps.prev %}
+    <div style="margin-left: 150px">
+      <button name="wizard_goto_step" 
+              type="submit" 
+              value="{{ wizard.steps.prev }}">Back</button>
+      <button name="wizard_goto_step" 
+              type="submit" 
+              value="{{ wizard.steps.first }}">Start over</button>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}
