@@ -7,7 +7,12 @@
   {% csrf_token %}
   {{ form.as_p }}
   {{ wizard.management_form }}
+
+  {% if wizard.steps.next %}
   <input type="submit" value="On to Step {{ wizard.steps.next|add:1 }}">
+  {% else %}
+  <input type="submit" value="Finish">
+  {% endif %}
 
 
     {% if wizard.steps.prev %}
@@ -15,10 +20,12 @@
       <button name="wizard_goto_step" 
               type="submit" 
               value="{{ wizard.steps.prev }}">Back</button>
+      {% if wizard.steps.prev != wizard.steps.first %}
       <button name="wizard_goto_step" 
               type="submit" 
               value="{{ wizard.steps.first }}">Start over</button>
       {% endif %}
     </div>
+    {% endif %}
   </form>
 {% endblock %}
