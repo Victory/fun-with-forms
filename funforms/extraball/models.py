@@ -1,10 +1,14 @@
 from django.db import models
 from django import forms
 
+from extraball.validators import validate_subject
 # Create your models here.
 
 class ExtraBallForm1(forms.Form):
-    subject = forms.CharField(max_length=100)
+    subject = forms.CharField(
+        max_length=100,
+        validators=[validate_subject])
+
     source = forms.CharField(max_length=100)
 
 
