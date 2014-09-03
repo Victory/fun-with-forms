@@ -4,6 +4,11 @@
 {% block content %}
 <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 <form method="POST">
+
+  {% if wizard.steps.step1 == 2 %}
+  Subject: {{ subject_val }}
+  {% endif %}
+
   {% csrf_token %}
   {{ form.as_p }}
   {{ wizard.management_form }}
