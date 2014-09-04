@@ -9,6 +9,11 @@
   Subject: {{ subject_val }}
   {% endif %}
 
+
+  {% if wizard.steps.step1 == 3 %}
+  Message: {{ message_val }}
+  {% endif %}
+
   {% csrf_token %}
   {{ form.as_p }}
   {{ wizard.management_form }}

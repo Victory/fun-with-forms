@@ -18,8 +18,13 @@ class ExtraBallView(SessionWizardView):
         if current_step == 1:
             prev_data = self.storage.get_step_data('0')
             extra_data['subject_val'] = prev_data.get('0-subject','')
-            print "here"
             context.update(extra_data)
+
+        if current_step == 2:
+            prev_data = self.storage.get_step_data('1')
+            extra_data['message_val'] = prev_data.get('1-message','')
+            context.update(extra_data)
+
         return context
 
     def done(self, form_list, **kwargs):
