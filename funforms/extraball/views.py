@@ -9,6 +9,18 @@ class ExtraBallView(SessionWizardView):
     template_name = 'extraball.html'
 
 
+    def get_form_initial(self, step):
+        current_step = int(self.storage.current_step)
+        initial = {}
+
+        if current_step == 0:
+            print "HERE"
+            prev_data = self.storage.get_step_data('0')
+            subject = prev_data.get('0-subject','')
+            initial = {"message": "subject\n----------\n"}
+
+        return self.initial_dict.get(step, initial)
+
 
     def get_context_data(self, form, **kwargs):
         context = super(ExtraBallView, self).get_context_data(form, **kwargs)
