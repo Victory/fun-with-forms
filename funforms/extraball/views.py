@@ -16,8 +16,9 @@ class ExtraBallView(SessionWizardView):
         if current_step == 0:
             print "HERE"
             prev_data = self.storage.get_step_data('0')
-            subject = prev_data.get('0-subject','')
-            initial = {"message": "subject\n----------\n"}
+            if prev_data:
+                subject = prev_data.get('0-subject','')
+                initial = {"message": "%s\n----------\n" % subject}
 
         return self.initial_dict.get(step, initial)
 
@@ -27,10 +28,6 @@ class ExtraBallView(SessionWizardView):
 
         extra_data = {}
         current_step = int(self.storage.current_step)
-        if current_step == 1:
-            prev_data = self.storage.get_step_data('0')
-            extra_data['subject_val'] = prev_data.get('0-subject','')
-            context.update(extra_data)
 
         if current_step == 2:
             prev_data = self.storage.get_step_data('1')
