@@ -6,6 +6,7 @@ admin.autodiscover()
 import bythebook.views
 import hideyshowy.views
 import extraball.views
+import pretties.views
 
 urlpatterns = patterns(
     '',
@@ -26,6 +27,10 @@ urlpatterns = patterns(
     url(r'^extraball/done',
         extraball.views.DoneView.as_view(),
         name='extraball_done'),
+
+    url(r'^pretties',
+        pretties.views.PrettiesView.as_view(),
+        name='pretties'),
 
     url(r'^admin/', include(admin.site.urls)),
 )

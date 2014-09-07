@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'bythebook',
     'hideyshowy',
     'extraball',
+    'pretties',
 )
 
 MIDDLEWARE_CLASSES = (
